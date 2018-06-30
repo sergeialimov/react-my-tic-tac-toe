@@ -1,1 +1,1 @@
-export { default as Board } from './components/board';
+export { default as Board } from './components/board/board';
