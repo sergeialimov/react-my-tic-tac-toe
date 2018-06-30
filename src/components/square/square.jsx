@@ -5,14 +5,14 @@ import './square.css';
 export default function Square (props) {
   const { value } = props;
   return (
-    <div>
+    <div className="text">
       {value}
     </div>
   );
 }
 
 Square.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.number,
 };
 
 Square.displayName = 'Square';
