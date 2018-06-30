@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Square from './square.jsx';
+import Square from '../square/square.jsx';
 
 export default class Board extends React.Component {
   renderSquare () {
