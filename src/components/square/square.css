@@ -10,3 +10,10 @@
   font-family: sans-serif;
   border-left: 0px;
 }
+
+.text {
+  font-family: sans-serif;
+  text-align: center;
+  line-height: 60px;
+  font-size: 1.6em;
+}
