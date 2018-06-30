@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './square.css';
 
 export default function Square (props) {
   const { value } = props;
