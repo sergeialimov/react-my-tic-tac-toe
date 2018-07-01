@@ -36,6 +36,10 @@ export default class Board extends React.Component {
   render () {
     const { xIsNext } = this.state;
     const nextPlayer = xIsNext ? 'X' : 'O';
+    const nextPlayerHeader = `next player is: ${nextPlayer}`;
+    const winHeader = 'winner is: ';
+    const winner = whoWin(this.state);
+    const header = winner ? `${winHeader} + ${winner}` : nextPlayerHeader;
 
     return (
       <div className="board">
@@ -43,9 +47,7 @@ export default class Board extends React.Component {
           Tic tac toe
         </div>
         <div className="header2">
-          next player is:
-          {' '}
-          {nextPlayer}
+          {header}
         </div>
         <div className="row">
           <div className="square" onClick={() => this.handleClick(0)} onKeyDown={() => this.handleClick(0)}>
@@ -89,3 +91,25 @@ Board.displayName = 'Board';
 
 
 ReactDOM.render(<Board />, document.getElementById('root'));
+
+function whoWin (state) {
+  const { arr } = state;
+  const winCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  let result;
+  winCombinations.forEach((comb) => {
+    if (arr[comb[0]] && arr[comb[0]] === arr[comb[1]] && arr[comb[1]] === arr[comb[2]]) {
+      result = arr[comb[0]];
+    }
+  });
+  return result;
+}
