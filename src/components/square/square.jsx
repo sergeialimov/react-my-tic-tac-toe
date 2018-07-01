@@ -12,7 +12,7 @@ export default function Square (props) {
 }
 
 Square.propTypes = {
-  value: PropTypes.number,
+  value: PropTypes.string,
 };
 
 Square.displayName = 'Square';
