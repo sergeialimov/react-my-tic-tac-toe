@@ -34,8 +34,19 @@ export default class Board extends React.Component {
   }
 
   render () {
+    const { xIsNext } = this.state;
+    const nextPlayer = xIsNext ? 'X' : 'O';
+
     return (
       <div className="board">
+        <div className="header">
+          Tic tac toe
+        </div>
+        <div className="header2">
+          next player is:
+          {' '}
+          {nextPlayer}
+        </div>
         <div className="row">
           <div className="square" onClick={() => this.handleClick(0)} onKeyDown={() => this.handleClick(0)}>
             {this.renderSquare(0)}
