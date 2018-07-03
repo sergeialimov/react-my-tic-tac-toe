@@ -18,10 +18,13 @@ export default class Board extends React.Component {
     const arrCopy = arr.slice();
     const value = xIsNext ? 'X' : 'O';
     arrCopy[i] = value;
-    this.setState({
-      arr: arrCopy,
-      xIsNext: !xIsNext,
-    });
+    const winner = whoWin(this.state);
+    if (!winner && !arr[i]) {
+      this.setState({
+        arr: arrCopy,
+        xIsNext: !xIsNext,
+      });
+    }
   }
 
   renderSquare (i) {
