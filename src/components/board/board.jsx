@@ -40,9 +40,15 @@ export default class Board extends React.Component {
     const { xIsNext } = this.state;
     const nextPlayer = xIsNext ? 'X' : 'O';
     const nextPlayerHeader = `next player is: ${nextPlayer}`;
-    const winHeader = 'winner is: ';
     const winner = whoWin(this.state);
-    const header = winner ? `${winHeader} + ${winner}` : nextPlayerHeader;
+    let header;
+    if (winner === 'nobody') {
+      header = 'Nobody wins';
+    } else if (!winner) {
+      header = nextPlayerHeader;
+    } else {
+      header = `Winner is:  ${winner}!`;
+    }
 
     return (
       <div className="board">
@@ -114,5 +120,9 @@ function whoWin (state) {
       result = arr[comb[0]];
     }
   });
+
+  if (!arr.includes(null) && !result) {
+    result = 'nobody';
+  }
   return result;
 }
