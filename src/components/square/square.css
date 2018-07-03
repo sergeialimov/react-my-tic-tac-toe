@@ -1,12 +1,11 @@
 .square {
-  display: inline-block;
-  height: 60px;
+  float: left;
+  height: 58px;
   width: 60px;
   border: 1px;
   border-color: #2b3e50;
   border-style: solid;
   background-color: #2fc0fe;
-  /* background-color: #77a3b6; */
   font-family: sans-serif;
   border-left: 0px;
 }
