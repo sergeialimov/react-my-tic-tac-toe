@@ -9,22 +9,25 @@ export default class Game extends Component {
       arr: Array(9)
         .fill(null),
       xIsNext: true,
-      historyArr: [Array(9)
-        .fill(null)],
+      historyArr: [Array(9)],
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick (i) {
-    const { arr, xIsNext } = this.state;
+    const { arr, historyArr, xIsNext } = this.state;
     const arrCopy = arr.slice();
-    const value = xIsNext ? 'X' : 'O';
-    arrCopy[i] = value;
+    const historyArrCopy = historyArr.slice();
+    const nextMove = xIsNext ? 'X' : 'O';
     const winner = whoWin(this.state);
+    arrCopy[i] = nextMove;
+    historyArrCopy.push(arrCopy);
+
     if (!winner && !arr[i]) {
       this.setState({
         arr: arrCopy,
         xIsNext: !xIsNext,
+        historyArr: historyArrCopy,
       });
     }
   }
@@ -37,6 +40,31 @@ export default class Game extends Component {
         arr={arr}
         handleClickParent={this.handleClick}
       />
+    );
+  }
+
+  renderHistoryBoard (i) {
+    const { historyArr } = this.state;
+    if (Array.isArray(historyArr[1])) {
+      this.setState({
+        arr: historyArr[i],
+      });
+    }
+  }
+
+  renderStartGame () {
+    this.setState({
+      arr: Array(9)
+        .fill(null),
+      xIsNext: true,
+    });
+  }
+
+  renderButtons () {
+    return (
+      <button type="button" onClick={() => this.renderStartGame()}>
+        Go to game start
+      </button>
     );
   }
 
@@ -54,7 +82,10 @@ export default class Game extends Component {
       header = `Winner is:  ${winner}!`;
     }
     return (
-      this.renderBoard(header)
+      <div className="game">
+        {this.renderBoard(header)}
+        {this.renderButtons()}
+      </div>
     );
   }
 }
