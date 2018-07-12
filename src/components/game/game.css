@@ -1,0 +1,15 @@
+.button {
+  height: 30px;
+  width: 130px;
+  float: left;
+  cursor: pointer;
+  margin-top: 3%;
+  font-family: sans-serif;
+  font-size: 90%;
+}
+
+.button2 {
+  float: left;
+  position: static;
+
+}

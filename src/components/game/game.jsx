@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Board from '../board/board.jsx';
+import './game.css';
 
 export default class Game extends Component {
   constructor () {
@@ -10,17 +11,22 @@ export default class Game extends Component {
         .fill(null),
       xIsNext: true,
       historyArr: [Array(9)],
+      buttons: ['go to move # 1'],
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick (i) {
-    const { arr, historyArr, xIsNext } = this.state;
+    const {
+      arr, historyArr, xIsNext, buttons,
+    } = this.state;
     const arrCopy = arr.slice();
     const historyArrCopy = historyArr.slice();
+    const buttonsCopy = buttons;
     const nextMove = xIsNext ? 'X' : 'O';
     const winner = whoWin(this.state);
     arrCopy[i] = nextMove;
+    buttonsCopy.push(`go to move # ${buttonsCopy.length + 1}`);
     historyArrCopy.push(arrCopy);
 
     if (!winner && !arr[i]) {
@@ -28,6 +34,7 @@ export default class Game extends Component {
         arr: arrCopy,
         xIsNext: !xIsNext,
         historyArr: historyArrCopy,
+        buttons: buttonsCopy,
       });
     }
   }
@@ -43,6 +50,14 @@ export default class Game extends Component {
     );
   }
 
+  renderStartGame () {
+    this.setState({
+      arr: Array(9)
+        .fill(null),
+      xIsNext: true,
+    });
+  }
+
   renderHistoryBoard (i) {
     const { historyArr } = this.state;
     if (Array.isArray(historyArr[1])) {
@@ -52,19 +67,23 @@ export default class Game extends Component {
     }
   }
 
-  renderStartGame () {
-    this.setState({
-      arr: Array(9)
-        .fill(null),
-      xIsNext: true,
-    });
-  }
-
   renderButtons () {
+    const { buttons } = this.state;
     return (
-      <button type="button" onClick={() => this.renderStartGame()}>
-        Go to game start
-      </button>
+      <div>
+        {buttons.map((button) => (
+          <div key>
+            <button
+              className="button"
+              type="button"
+              key={button}
+              onClick={() => this.renderHistoryBoard(buttons.indexOf(button))}
+            >
+              {button}
+            </button>
+          </div>
+        ))}
+      </div>
     );
   }
 
