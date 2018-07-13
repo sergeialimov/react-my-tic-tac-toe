@@ -10,46 +10,49 @@ export default class Game extends Component {
     this.state = {
       arr: Array(9)
         .fill(null),
-      xIsNext: true,
-      historyArr: [Array(9)],
+      historyMoves: [Array(9)],
+      historyXIsNext: [true],
       buttons: [],
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   setHistoryBoard (i) {
-    const { historyArr, buttons } = this.state;
-    if (Array.isArray(historyArr[0])) {
-      const newHistoryArr = historyArr.slice(0, i + 1);
-      const newButtons = buttons.slice(0, i);
+    const { historyMoves, buttons, historyXIsNext } = this.state;
+    const newHistoryArr = historyMoves.slice(0, i + 1);
+    const newButtons = buttons.slice(0, i);
+    const historyXIsNextCopy = historyXIsNext.slice(0, i + 1);
 
-      this.setState({
-        arr: historyArr[i],
-        buttons: newButtons,
-        historyArr: newHistoryArr,
-      });
-    }
+    this.setState({
+      arr: historyMoves[i],
+      buttons: newButtons,
+      historyMoves: newHistoryArr,
+      xIsNext: historyXIsNext[i],
+      historyXIsNext: historyXIsNextCopy,
+    });
   }
 
   handleClick (i) {
     const {
-      arr, historyArr, xIsNext, buttons,
+      arr, historyMoves, buttons, historyXIsNext,
     } = this.state;
     const arrCopy = arr.slice();
-    const historyArrCopy = historyArr.slice();
+    const historyMovesCopy = historyMoves.slice();
     const buttonsCopy = buttons;
+    const xIsNext = historyXIsNext[historyXIsNext.length - 1];
     const nextMove = xIsNext ? 'X' : 'O';
     const winner = whoWin(arr);
     arrCopy[i] = nextMove;
+    historyXIsNext.push(!xIsNext);
     buttonsCopy.push(`go to move # ${buttonsCopy.length + 1}`);
-    historyArrCopy.push(arrCopy);
+    historyMovesCopy.push(arrCopy);
 
     if (!winner && !arr[i]) {
       this.setState({
         arr: arrCopy,
-        xIsNext: !xIsNext,
-        historyArr: historyArrCopy,
+        historyMoves: historyMovesCopy,
         buttons: buttonsCopy,
+        historyXIsNext,
       });
     }
   }
