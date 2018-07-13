@@ -17,6 +17,19 @@ export default class Game extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  setHistoryBoard (i) {
+    const { historyArr, buttons } = this.state;
+    if (Array.isArray(historyArr[1])) {
+      const newHistoryArr = historyArr.slice(0, i);
+      const newButtons = buttons.slice(0, i);
+      this.setState({
+        arr: historyArr[i],
+        buttons: newButtons,
+        historyArr: newHistoryArr,
+      });
+    }
+  }
+
   handleClick (i) {
     const {
       arr, historyArr, xIsNext, buttons,
@@ -51,21 +64,7 @@ export default class Game extends Component {
     );
   }
 
-  // TODO Rename method. It's not render
-  renderHistoryBoard (i) {
-    const { historyArr, buttons } = this.state;
-    if (Array.isArray(historyArr[1])) {
-      const newHistoryArr = historyArr.slice(0, i);
-      const newButtons = buttons.slice(0, i);
-      this.setState({
-        arr: historyArr[i],
-        buttons: newButtons,
-        historyArr: newHistoryArr,
-      });
-    }
-  }
-
-  renderButtons () {
+  MoveButtons () {
     const { buttons } = this.state;
     return (
       <div>
@@ -74,7 +73,7 @@ export default class Game extends Component {
             <button
               className="button"
               type="button"
-              onClick={() => this.renderHistoryBoard(buttons.indexOf(button))}
+              onClick={() => this.setHistoryBoard(buttons.indexOf(button))}
             >
               {button}
             </button>
@@ -100,7 +99,7 @@ export default class Game extends Component {
     return (
       <div className="game">
         {this.Board(header)}
-        {this.renderButtons()}
+        {this.MoveButtons()}
       </div>
     );
   }
