@@ -19,9 +19,10 @@ export default class Game extends Component {
 
   setHistoryBoard (i) {
     const { historyArr, buttons } = this.state;
-    if (Array.isArray(historyArr[1])) {
-      const newHistoryArr = historyArr.slice(0, i);
+    if (Array.isArray(historyArr[0])) {
+      const newHistoryArr = historyArr.slice(0, i + 1);
       const newButtons = buttons.slice(0, i);
+
       this.setState({
         arr: historyArr[i],
         buttons: newButtons,
@@ -40,7 +41,7 @@ export default class Game extends Component {
     const nextMove = xIsNext ? 'X' : 'O';
     const winner = whoWin(arr);
     arrCopy[i] = nextMove;
-    buttonsCopy.push(`go to move # ${buttonsCopy.length}`);
+    buttonsCopy.push(`go to move # ${buttonsCopy.length + 1}`);
     historyArrCopy.push(arrCopy);
 
     if (!winner && !arr[i]) {
@@ -73,7 +74,7 @@ export default class Game extends Component {
             <button
               className="button"
               type="button"
-              onClick={() => this.setHistoryBoard(buttons.indexOf(button))}
+              onClick={() => this.setHistoryBoard(buttons.indexOf(button) + 1)}
             >
               {button}
             </button>
@@ -99,6 +100,13 @@ export default class Game extends Component {
     return (
       <div className="game">
         {this.Board(header)}
+        <button
+          type="button"
+          className="button"
+          onClick={() => this.setHistoryBoard(0)}
+        >
+          Go to game start
+        </button>
         {this.MoveButtons()}
       </div>
     );
