@@ -17,8 +17,8 @@ exports.whoWin = (arr) => {
     }
   });
 
-  // if (!arr.includes(null) && !result) {
-  //   result = 'nobody';
-  // }
+  if (!arr.includes(null) && !arr.includes(undefined) && !result) {
+    result = 'nobody';
+  }
   return result;
 };

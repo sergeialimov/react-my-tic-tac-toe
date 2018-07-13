@@ -27,7 +27,6 @@ export default class Game extends Component {
       arr: historyMoves[i],
       buttons: newButtons,
       historyMoves: newHistoryArr,
-      xIsNext: historyXIsNext[i],
       historyXIsNext: historyXIsNextCopy,
     });
   }
@@ -88,7 +87,8 @@ export default class Game extends Component {
   }
 
   render () {
-    const { xIsNext, arr } = this.state;
+    const { arr, historyXIsNext } = this.state;
+    const xIsNext = historyXIsNext[historyXIsNext.length - 1];
     const nextPlayer = xIsNext ? 'X' : 'O';
     const nextPlayerHeader = `next player is: ${nextPlayer}`;
     const winner = whoWin(arr);
