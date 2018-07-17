@@ -33,21 +33,24 @@ export default class Game extends Component {
 
   handleClick (i) {
     const {
-      arr, historyMoves, buttons, historyXIsNext
+      arr, historyMoves, buttons, historyXIsNext,
     } = this.state;
+    const arrCopy = arr.slice();
+    const historyMovesCopy = historyMoves.slice();
+    const buttonsCopy = buttons;
     const xIsNext = historyXIsNext[historyXIsNext.length - 1];
     const nextMove = xIsNext ? 'X' : 'O';
     const winner = whoWin(arr);
-    arr[i] = nextMove;
+    arrCopy[i] = nextMove;
     historyXIsNext.push(!xIsNext);
-    buttons.push(`go to move # ${buttons.length + 1}`);
-    historyMoves.push(arr);
+    buttonsCopy.push(`go to move # ${buttonsCopy.length + 1}`);
+    historyMovesCopy.push(arrCopy);
 
     if (!winner && !arr[i]) {
       this.setState({
-        arr,
-        historyMoves,
-        buttons,
+        arr: arrCopy,
+        historyMoves: historyMovesCopy,
+        buttons: buttonsCopy,
         historyXIsNext,
       });
     }
