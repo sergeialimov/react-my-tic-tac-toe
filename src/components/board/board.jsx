@@ -8,14 +8,11 @@ export default function Board (props) {
 
   const renderSquare = (i) => (
     <Square
+      onClick={() => handleClickParent(i)}
       value={arr[i]}
     />
   );
   renderSquare.displayName = 'renderSquare';
-
-  const handleClick = (i) => {
-    handleClickParent(i);
-  };
 
   return (
     <div className="board">
@@ -26,37 +23,19 @@ export default function Board (props) {
         {header}
       </div>
       <div className="row">
-        <div className="square" onClick={() => handleClick(0)} onKeyDown={() => handleClick(0)}>
-          {renderSquare(0)}
-        </div>
-        <div className="square" onClick={() => handleClick(1)} onKeyDown={() => handleClick(1)}>
-          {renderSquare(1)}
-        </div>
-        <div className="square" onClick={() => handleClick(2)} onKeyDown={() => handleClick(2)}>
-          {renderSquare(2)}
-        </div>
+        {renderSquare(0)}
+        {renderSquare(1)}
+        {renderSquare(2)}
       </div>
       <div className="row">
-        <div className="square" onClick={() => handleClick(3)} onKeyDown={() => handleClick(3)}>
-          {renderSquare(3)}
-        </div>
-        <div className="square" onClick={() => handleClick(4)} onKeyDown={() => handleClick(4)}>
-          {renderSquare(4)}
-        </div>
-        <div className="square" onClick={() => handleClick(5)} onKeyDown={() => handleClick(5)}>
-          {renderSquare(5)}
-        </div>
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
       </div>
       <div className="row">
-        <div className="square" onClick={() => handleClick(6)} onKeyDown={() => handleClick(6)}>
-          {renderSquare(6)}
-        </div>
-        <div className="square" onClick={() => handleClick(7)} onKeyDown={() => handleClick(7)}>
-          {renderSquare(7)}
-        </div>
-        <div className="square" onClick={() => handleClick(8)} onKeyDown={() => handleClick(8)}>
-          {renderSquare(8)}
-        </div>
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
       </div>
     </div>
   );
