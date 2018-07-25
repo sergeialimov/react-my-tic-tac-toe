@@ -1,16 +1,12 @@
 .square {
   float: left;
-  height: 58px;
+  height: 59px;
   width: 60px;
   border: 1px;
   border-color: #2b3e50;
   border-style: solid;
   background-color: #2fc0fe;
-  font-family: sans-serif;
   border-left: 0px;
-}
-
-.text {
   font-family: sans-serif;
   text-align: center;
   line-height: 60px;
